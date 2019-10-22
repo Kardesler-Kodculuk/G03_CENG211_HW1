@@ -68,4 +68,30 @@ public class ArrayHelpers {
 		}
 		return cutToIndex(array, count);
 	}
+	/**
+	 * If array is full, it returns true. If not returns false
+	 * @param array
+	 * @return
+	 */
+	private static <T> boolean isFull(T[] array) {
+		if (array[array.length] == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	/**
+	 * If the array is full, it doubles the capacity
+	 * @param array
+	 */
+	public static <T> void ensureCapacity(T[] array) {
+		if (isFull(array)) {
+			@SuppressWarnings("unchecked")
+			T[] doubledArray = (T[]) new Object[array.length*2];
+			for (int i = 0; i < array.length; i++) {
+				doubledArray[i] = array[i];
+			}
+			array = doubledArray;
+		}
+	}
 }
