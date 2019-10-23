@@ -39,6 +39,6 @@ public class WeatherQuerry {
 	}
 
 	public void ask(Region[] regions, CityWeather[][] cityWeather) {
-		
+		printLowestFeelLikeTemperature();
 	}
 }
