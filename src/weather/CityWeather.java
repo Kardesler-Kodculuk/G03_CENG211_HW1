@@ -15,10 +15,10 @@ public class CityWeather {
 		return date;
 	}
 	
-	public static Weather[] returnWeatherArray(CityWeather[] cityWeatherArray) {
-		Weather[] weatherArray = new Weather[cityWeatherArray.length];
+	public static double[] getTemperatureArray(CityWeather[] cityWeatherArray) {
+		double[] weatherArray = new double[cityWeatherArray.length];
 		for (int i = 0; i < cityWeatherArray.length; i++) {
-			weatherArray[i] = cityWeatherArray[i].getWeather();
+			weatherArray[i] = cityWeatherArray[i].getWeather().getTemperature();
 		}
 		return weatherArray;
 	}

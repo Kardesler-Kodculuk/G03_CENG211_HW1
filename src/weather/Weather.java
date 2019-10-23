@@ -43,12 +43,4 @@ public class Weather {
 	public Visibility getVisibilty() {
 		return visibilty;
 	}
-	
-	public static double[] getTemperatureArray(Weather[] weatherArray) {
-		double[] temperatureArray = new double[weatherArray.length];
-		for (int i = 0; i < weatherArray.length; i++) {
-			temperatureArray[i] = weatherArray[i].getTemperature();
-		}
-		return temperatureArray;
-	}
 }

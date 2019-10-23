@@ -41,14 +41,12 @@ public class WeatherQuerry {
 		Double[] temperatureVariations = new Double[CITYCOUNT];
 		int emptyIndex = 0;
 		double temperatureVariation = 0;
-		Weather[] weeklyWeather;
 		double[] weeklyTemperature;
 		for (CityWeather[] cwArray : weatherForecast) {
 			if (cwArray.length == 0) {
 				continue;
 			}
-			weeklyWeather = CityWeather.returnWeatherArray(cwArray);
-			weeklyTemperature = Weather.getTemperatureArray(weeklyWeather);
+			weeklyTemperature = CityWeather.getTemperatureArray(cwArray);
 			temperatureVariation = ArrayHelpers.findMinMaxDifference(weeklyTemperature);
 			temperatureVariations[emptyIndex] = temperatureVariation;
 			cities[emptyIndex] = cwArray[0].getCity();
@@ -57,6 +55,7 @@ public class WeatherQuerry {
 		System.out.println(cities[CITYCOUNT - 1].toString() + cities[CITYCOUNT - 2].toString() +  cities[CITYCOUNT - 3].toString());
 	}
 	
+	private void printRegionWithHighestHumidity () {}
 	public void ask(Region[] regions, CityWeather[][] cityWeather) {
 		printLowestFeelLikeTemperature();
 		printTopThreeCitiesWithTheHighestTemperatureVariation();
