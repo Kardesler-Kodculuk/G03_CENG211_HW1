@@ -30,4 +30,12 @@ public class CityWeather {
 		}
 		return utility.ArrayHelpers.trimArrayToFullFilled(highestWeather);
 	}
+	
+	public static Weather[] returnWeatherArray(CityWeather[] cityWeatherArray) {
+		Weather[] weatherArray = new Weather[cityWeatherArray.length];
+		for (int i = 0; i < cityWeatherArray.length; i++) {
+			weatherArray[i] = cityWeatherArray[i].getWeather();
+		}
+		return weatherArray;
+	}
 }

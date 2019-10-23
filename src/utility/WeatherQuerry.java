@@ -5,6 +5,7 @@ import geography.Region;
 import weather.CityWeather;
 import weather.CityWeekly;
 import weather.RegionWeekly;
+import weather.Weather;
 
 public class WeatherQuerry {
 	private static final int CITYCOUNT = 81;
@@ -27,7 +28,7 @@ public class WeatherQuerry {
 		}
 	}
 	
-	public void printLowestFeelLikeTemperature() {
+	private void printLowestFeelLikeTemperature() {
 		CityWeather cityWeathers[] = ArrayHelpers.straighten(weatherForecast);
 		double lowestFeelsLike = 0;
 		double currentFeelsLike = 0;
@@ -47,7 +48,26 @@ public class WeatherQuerry {
 		System.out.println(ArrayHelpers.trimArrayToFullFilled(resultCities));
 	}
 
+	private void printTopThreeCitiesWithTheHighestTemperatureVariation() {
+		City[] cities = new City[CITYCOUNT];
+		Double[] temperatureVariations = new Double[CITYCOUNT];
+		int emptyIndex = 0;
+		double temperatureVariation = 0;
+		Weather[] weeklyWeather;
+		double[] weeklyTemperature;
+		for (CityWeather[] cwArray : weatherForecast) {
+			weeklyWeather = CityWeather.returnWeatherArray(cwArray);
+			weeklyTemperature = Weather.getTemperatureArray(weeklyWeather);
+			temperatureVariation = ArrayHelpers.findMinMaxDifference(weeklyTemperature);
+			temperatureVariations[emptyIndex] = temperatureVariation;
+			cities[emptyIndex] = cwArray[0].getCity();
+		}
+		ArrayHelpers.sortArrayAccordingTo(cities, temperatureVariations);
+		System.out.println(cities[CITYCOUNT - 1].toString() + cities[CITYCOUNT - 2].toString() +  cities[CITYCOUNT - 3].toString());
+	}
+	
 	public void ask(Region[] regions, CityWeather[][] cityWeather) {
 		printLowestFeelLikeTemperature();
+		printTopThreeCitiesWithTheHighestTemperatureVariation();
 	}
 }

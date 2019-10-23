@@ -107,4 +107,50 @@ public class ArrayHelpers {
 			object = null;
 		}
 	}
+	
+	/**
+	 * Find the difference between maximum and minimum numbers in a double or double castable array.
+	 * @param array of doubles or double-castable numerals.
+	 * @return the difference.
+	 */
+	public static double findMinMaxDifference(double[] array) {
+		double min = array[0];
+		double max = array[0];
+		double difference = 0;
+		for (double number : array) {
+			if (number < min) {
+				min = number;
+			} else if (number > max) {
+				max = number;
+			}
+		}
+		difference = max - min;
+		return difference;
+	}
+	
+	/**
+	 * Sort targetArray according to helperArray.
+	 * @param <T>
+	 * @param <S>
+	 * @param targetArray
+	 * @param helperArray
+	 */
+	public static <T, S extends Comparable<S>> void sortArrayAccordingTo(T[] targetArray, S[] helperArray) {
+		S temporaryCompareValue;
+		T temporaryObjectValue;
+		if (targetArray.length == helperArray.length) {
+			for (int i = 0; i < targetArray.length; i++) {
+				for (int j = i + 1; j < targetArray.length; j++) {
+					if (helperArray[j].compareTo(helperArray[j + 1]) > 0) {
+						temporaryCompareValue = helperArray[j];
+						temporaryObjectValue = targetArray[j];
+						helperArray[j] = helperArray[j + 1];
+						targetArray[j] = targetArray[j + 1];
+						helperArray[j + 1] = temporaryCompareValue;
+						targetArray[j + 1] = temporaryObjectValue;
+					}
+				}
+			}
+		}
+	}
 }
