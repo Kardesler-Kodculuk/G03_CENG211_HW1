@@ -7,8 +7,9 @@ import weather.CityWeekly;
 import weather.RegionWeekly;
 
 public class WeatherQuerry {
-	private static final int cityCount = 81;
-	private static final int regionCount = 7;
+	private static final int CITYCOUNT = 81;
+	private static final int REGIONCOUNT = 7;
+	private CityWeather[][] weatherForecast;
 	private RegionWeekly[] regionWeeklyForecasts;
 	
 	
@@ -27,15 +28,23 @@ public class WeatherQuerry {
 	}
 	
 	public void printLowestFeelLikeTemperature() {
-		CityWeather[][] results = new CityWeather[regionWeeklyForecasts.length][];
-		CityWeather parsedResults[];
-		for (int i = 0; i < regionWeeklyForecasts.length; i++) {
-			results[i] = regionWeeklyForecasts[i].getLowestFeelLikeTemperatureCityWeather();
+		CityWeather cityWeathers[] = ArrayHelpers.straighten(weatherForecast);
+		double lowestFeelsLike = 0;
+		double currentFeelsLike = 0;
+		City[] resultCities = new City[CITYCOUNT];
+		int emptyIndex = 0;
+		for (CityWeather currentCityWeather : cityWeathers) {
+			currentFeelsLike = currentCityWeather.getWeather().getFeelsLikeTemperature();
+			if (currentFeelsLike == lowestFeelsLike) {
+				resultCities = ArrayHelpers.ensureCapacity(resultCities);
+				resultCities[emptyIndex++] = currentCityWeather.getCity();
+			} else if (currentFeelsLike < lowestFeelsLike) {
+				ArrayHelpers.formatArray(resultCities);
+				emptyIndex = 1;	
+				resultCities[emptyIndex] = currentCityWeather.getCity();
+			}
 		}
-		parsedResults = utility.ArrayHelpers.straighten(results);
-		CityWeather[] lowestTemperatures = CityWeather.getLowestFeelsLikeTemperature(parsedResults);
-		System.out.println(lowestTemperatures);
-		
+		System.out.println(ArrayHelpers.trimArrayToFullFilled(resultCities));
 	}
 
 	public void ask(Region[] regions, CityWeather[][] cityWeather) {

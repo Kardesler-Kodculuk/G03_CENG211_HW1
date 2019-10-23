@@ -80,18 +80,31 @@ public class ArrayHelpers {
 			return false;
 		}
 	}
+	
 	/**
 	 * If the array is full, it doubles the capacity
 	 * @param array
 	 */
-	public static <T> void ensureCapacity(T[] array) {
+	public static <T> T[] ensureCapacity(T[] array) {
 		if (isFull(array)) {
 			@SuppressWarnings("unchecked")
 			T[] doubledArray = (T[]) new Object[array.length*2];
 			for (int i = 0; i < array.length; i++) {
 				doubledArray[i] = array[i];
 			}
-			array = doubledArray;
+			return doubledArray;
+		}
+		return array;
+	}
+	
+	/**
+	 * Set all the elements of the array to null
+	 * @param <T> Type of array.
+	 * @param array Array to format.
+	 */
+	public static <T> void formatArray(T[] array) {
+		for (T object : array) {
+			object = null;
 		}
 	}
 }
