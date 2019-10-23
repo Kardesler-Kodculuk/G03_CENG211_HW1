@@ -15,22 +15,6 @@ public class CityWeather {
 		return date;
 	}
 	
-	public static CityWeather[] getLowestFeelsLikeTemperature(CityWeather[] weathers) {
-		CityWeather[] highestWeather = new CityWeather[weathers.length];
-		double lowestValue = 0;
-		double currentValue = 0;
-		int index = 0;
-		for (CityWeather cityWeather : weathers) {
-			currentValue = cityWeather.getWeather().getFeelsLikeTemperature();
-			if (currentValue <= lowestValue) {
-				lowestValue = currentValue;
-				highestWeather[index] = cityWeather;
-				index++;
-			}
-		}
-		return utility.ArrayHelpers.trimArrayToFullFilled(highestWeather);
-	}
-	
 	public static Weather[] returnWeatherArray(CityWeather[] cityWeatherArray) {
 		Weather[] weatherArray = new Weather[cityWeatherArray.length];
 		for (int i = 0; i < cityWeatherArray.length; i++) {

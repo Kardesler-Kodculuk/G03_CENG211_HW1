@@ -14,7 +14,7 @@ public class WeatherForecastApp {
 		
 		Region[] regions = {akdeniz, doguAnadolu, ege, guneyDogu, icAnadolu, karadeniz, marmara};
 		CityWeather[][] weeklyForecast = FileIO.returnWeeklyForecast("weather.csv");
-		WeatherQuerry.ask(weeklyForecast, regions);
+		WeatherQuerry weatherQuerry = new WeatherQuerry(regions, weeklyForecast);
 	}
 
 }

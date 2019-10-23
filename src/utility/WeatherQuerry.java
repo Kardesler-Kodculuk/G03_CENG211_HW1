@@ -3,29 +3,17 @@ package utility;
 import geography.City;
 import geography.Region;
 import weather.CityWeather;
-import weather.CityWeekly;
-import weather.RegionWeekly;
 import weather.Weather;
 
 public class WeatherQuerry {
 	private static final int CITYCOUNT = 81;
 	private static final int REGIONCOUNT = 7;
 	private CityWeather[][] weatherForecast;
-	private RegionWeekly[] regionWeeklyForecasts;
-	
+	private Region[] regions;
 	
 	public WeatherQuerry(Region[] regions, CityWeather[][] weatherForecast) {
-		this.regionWeeklyForecasts = new RegionWeekly[regions.length];
-		int i = 0;
-		RegionWeekly currentRW;
-		for (Region region : regions) {
-			regionWeeklyForecasts[i] = new RegionWeekly(region, new CityWeekly[region.getCities().length]);
-			i++;
-		}
-		for (int j = 1; j < weatherForecast.length; j++) {
-			currentRW = regionWeeklyForecasts[utility.ArrayHelpers.returnIndexByReference(weatherForecast[i][0].getCity().getRegion(), regions)];
-			currentRW.addCityWeekly(new CityWeekly(weatherForecast[i]));
-		}
+		this.regions = regions;
+		this.weatherForecast = weatherForecast;
 	}
 	
 	private void printLowestFeelLikeTemperature() {
@@ -56,6 +44,9 @@ public class WeatherQuerry {
 		Weather[] weeklyWeather;
 		double[] weeklyTemperature;
 		for (CityWeather[] cwArray : weatherForecast) {
+			if (cwArray.length == 0) {
+				continue;
+			}
 			weeklyWeather = CityWeather.returnWeatherArray(cwArray);
 			weeklyTemperature = Weather.getTemperatureArray(weeklyWeather);
 			temperatureVariation = ArrayHelpers.findMinMaxDifference(weeklyTemperature);
