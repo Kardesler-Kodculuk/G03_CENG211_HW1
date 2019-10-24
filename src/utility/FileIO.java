@@ -25,9 +25,9 @@ public class FileIO {
 			}
 			br.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
+			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println("An I/O Error Happened");
+			e.printStackTrace();
 		} 
 		return lineArray;
 		}
@@ -37,6 +37,9 @@ public class FileIO {
 		City[] cities = new City[82];
 		Region region = null;
 		for (String line: lines) {
+			if (line == null) {
+				continue;
+			}
 			String[] values = line.split(","); //TODO there could be an error
 			byte plateNo = Byte.parseByte(values[0]);
 			String name = values[1];
@@ -50,22 +53,25 @@ public class FileIO {
 		return cities;
 	}
 	public static CityWeather[][] returnWeeklyForecast(String weatherFile, City[] cities) {
-		CityWeather[][] weeklyForecast = new CityWeather[7][82];
+		CityWeather[][] weeklyForecast = new CityWeather[82][7];
 		String[] lines = FileIO.parseFile(weatherFile);
 		for(int i = 0; i < lines.length; i++) {
+			if (lines[i] == null) {
+				continue;
+			}
 			String[] values = lines[i].split(",");
 			double wind = (double) Double.parseDouble(values[2]);
 			double temperature = (double) Double.parseDouble(values[3]);
 			double feelsLikeTemperature = (double) Double.parseDouble(values[4]);
 			double humidity = (double) Double.parseDouble(values[5]);
 			double precipetion = (double) Double.parseDouble(values[6]);
-			Weather.Visibility visibility = Weather.Visibility.valueOf(values[7].toUpperCase());
+			Weather.Visibility visibility = Weather.Visibility.valueOf(values[7].toUpperCase().replace('İ', 'I'));
 			Weather weather = new Weather(wind, temperature, feelsLikeTemperature, humidity, precipetion, visibility);
 			int plateNo = Integer.parseInt(values[0]);
 			City city = cities[plateNo];
 			String date = values[1];
 			CityWeather oneDayCityWeather = new CityWeather(city, weather, date);
-			weeklyForecast[i % 6][plateNo] = oneDayCityWeather;
+			weeklyForecast[plateNo][i % 7] = oneDayCityWeather;
 		}
 		return weeklyForecast;
 		}

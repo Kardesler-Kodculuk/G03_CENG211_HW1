@@ -25,6 +25,9 @@ public class WeatherQuerry {
 		City[] resultCities = new City[CITYCOUNT];
 		int emptyIndex = 0;
 		for (CityWeather currentCityWeather : cityWeathers) {
+			if (currentCityWeather == null) {
+				continue;
+			}
 			currentFeelsLike = currentCityWeather.getWeather().getFeelsLikeTemperature();
 			if (currentFeelsLike == lowestFeelsLike) {
 				resultCities = ArrayHelpers.ensureCapacity(resultCities);
@@ -93,7 +96,7 @@ public class WeatherQuerry {
 		}
 		System.out.println(ArrayHelpers.calculateMean(CityWeather.getTemperatureArray(weatherForecast[lowestIndex])) + ", " + ArrayHelpers.calculateMean(CityWeather.getTemperatureArray(weatherForecast[highestIndex])));
 	}
-	public void ask(Region[] regions, CityWeather[][] cityWeather) {
+	public void ask() {
 		printLowestFeelLikeTemperature();
 		printTopThreeCitiesWithTheHighestTemperatureVariation();
 		printRegionWithHighestHumidity();
