@@ -60,7 +60,11 @@ public class ArrayHelpers {
 	
 	@SuppressWarnings("unchecked")
 	public static<T> T[] cutToIndex(T[] array, int cutIndex) {
-		T[] cutArray = createObjectArray(array[0].getClass(), cutIndex - 1);
+		T reference = array[0] != null ? array[0] : array[1];
+		if (reference == null) {
+			throw new IllegalArgumentException();
+		}
+		T[] cutArray = createObjectArray(reference.getClass(), cutIndex + 1);
 		for (int i = 0; i <= cutIndex; i++) {
 			cutArray[i] = array[i];
 		}
