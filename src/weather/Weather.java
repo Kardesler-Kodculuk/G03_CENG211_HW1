@@ -6,7 +6,7 @@ public class Weather {
 	private double feelsLikeTemperature; //Celcius
 	private double humidity;
 	private double precipetion;
-	private enum Visibility {LOW, MEDIUM, HIGH}
+	public enum Visibility {LOW, MEDIUM, HIGH}
 	private Visibility visibilty;
 
 	public Weather(double wind, double temperature, double feelsLikeTemperature, double humidity, double precipetion,

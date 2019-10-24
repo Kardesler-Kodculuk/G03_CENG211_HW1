@@ -5,6 +5,12 @@ public class CityWeather {
 	private Weather weather;
 	private String date;
 	
+	public CityWeather(City city, Weather weather, String date) {
+		this.city = city;
+		this.weather = weather;
+		this.date = date;
+	}
+	
 	public City getCity() {
 		return city;
 	}

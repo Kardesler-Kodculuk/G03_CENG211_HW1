@@ -1,4 +1,5 @@
 package weather_forecast_app;
+import geography.City;
 import geography.Region;
 import utility.*;
 import weather.CityWeather;
@@ -14,7 +15,8 @@ public class WeatherForecastApp {
 		Region marmara = new Region((byte) 7, "Marmara");
 		
 		Region[] regions = {akdeniz, doguAnadolu, ege, guneyDogu, icAnadolu, karadeniz, marmara};
-		CityWeather[][] weeklyForecast = FileIO.returnWeeklyForecast("weather.csv");
+		City[] cities = FileIO.returnCities("CENG211_HW1_Cities.csv", regions);
+		CityWeather[][] weeklyForecast = FileIO.returnWeeklyForecast("weather.csv", cities);
 		WeatherQuerry weatherQuerry = new WeatherQuerry(regions, weeklyForecast);
 	}
 
