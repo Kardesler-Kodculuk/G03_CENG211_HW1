@@ -168,4 +168,24 @@ public class ArrayHelpers {
 			}
 		}
 	}
+	
+	/**
+	 * Calculate and return the mean value from an array of values.
+	 * @param values
+	 * @return
+	 */
+	public static double calculateMean(double[] values) {
+		Double[] valuesSorted = new Double[values.length];
+		double mean;
+		for (int i = 0; i < values.length; i++) {
+			valuesSorted[i] = values[i];
+		}
+		sortArrayAccordingTo(valuesSorted, valuesSorted.clone());
+		if (values.length % 2 == 0) {
+			mean = (valuesSorted[values.length / 2] + valuesSorted[values.length / 2 + 1]) / 2;
+		} else {
+			mean = valuesSorted[values.length / 2 + 1];
+		}
+		return mean;
+	}
 }

@@ -77,6 +77,22 @@ public class WeatherQuerry {
 		System.out.println(resultRegions[REGIONCOUNT - 1]);
 		
 	}
+	
+	private void printMeanTemperatureAltitude () {
+		double lowestAltitude = 0, highestAltitude = 0, currentAltitude;
+		int lowestIndex = 0, highestIndex = 0;
+		for (int i = 1; i <= CITYCOUNT; i++) {
+			currentAltitude = weatherForecast[i][0].getCity().getAltitude();
+			if (currentAltitude > highestAltitude) {
+				highestAltitude = currentAltitude;
+				highestIndex = i;
+			} else if (currentAltitude < lowestAltitude) {
+				lowestAltitude = currentAltitude;
+				lowestIndex = i;
+			}
+		}
+		System.out.println(ArrayHelpers.calculateMean(CityWeather.getTemperatureArray(weatherForecast[lowestIndex])) + ", " + ArrayHelpers.calculateMean(CityWeather.getTemperatureArray(weatherForecast[highestIndex])));
+	}
 	public void ask(Region[] regions, CityWeather[][] cityWeather) {
 		printLowestFeelLikeTemperature();
 		printTopThreeCitiesWithTheHighestTemperatureVariation();
