@@ -22,6 +22,19 @@ public class ArrayHelpers {
 	}
 	
 	/**
+	 * This seems to be the only legal way to actually create a generic array inside a static method,
+	 * It seems that normal methods fail due to the way Java's type erasure works, Array.newInstance
+	 * is the most reasonable method as generic arrays seem to be impossible to return from static functions otherwise. 
+	 * @param <T> 
+	 * @param type Type of the array to be created.
+	 * @param size Size of the array to be created.
+	 * @return
+	 */
+	private static <T> T[] createObjectArray(Class<?> type, int size) {
+		return (T[]) Array.newInstance(type, size);
+	}
+	
+	/**
 	 * Straighten a 2D matrix into a one dimensional array.
 	 * @param <T> Object type.
 	 * @param matrix 2D matrix to unwrap
@@ -35,7 +48,7 @@ public class ArrayHelpers {
 		for (T[] subarray : matrix) {
 			resultLength += subarray.length;
 		}
-		resultArray = (T[]) new Object[resultLength];
+		resultArray = createObjectArray(matrix[1][0].getClass(), resultLength);
 		for (T[] subarray : matrix) {
 			for (T object : subarray) {
 				resultArray[resultIndex] = object;
@@ -47,7 +60,7 @@ public class ArrayHelpers {
 	
 	@SuppressWarnings("unchecked")
 	public static<T> T[] cutToIndex(T[] array, int cutIndex) {
-		T[] cutArray = (T[]) new Object[cutIndex - 1];
+		T[] cutArray = createObjectArray(array[0].getClass(), cutIndex - 1);
 		for (int i = 0; i <= cutIndex; i++) {
 			cutArray[i] = array[i];
 		}
@@ -77,9 +90,9 @@ public class ArrayHelpers {
 	 */
 	private static <T> boolean isFull(T[] array) {
 		if (array[array.length - 1] == null) {
-			return true;
-		} else {
 			return false;
+		} else {
+			return true;
 		}
 	}
 	
@@ -90,8 +103,7 @@ public class ArrayHelpers {
 	public static <T> T[] ensureCapacity(T[] array) {
 		if (array[0] != null && isFull(array)) {
 			@SuppressWarnings("unchecked")
-			Object doubledPreArray = Array.newInstance(array[0].getClass(), array.length * 2);
-			T[] doubledArray = (T[]) doubledPreArray;
+			T[] doubledArray = createObjectArray(array[0].getClass(), array.length * 2);
 			for (int i = 0; i < array.length; i++) {
 				doubledArray[i] = array[i];
 			}
