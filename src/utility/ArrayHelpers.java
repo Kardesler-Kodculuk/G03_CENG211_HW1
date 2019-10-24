@@ -1,4 +1,5 @@
 package utility;
+import java.lang.reflect.Array;
 
 public class ArrayHelpers {
 	public static <T> boolean isReferenceInArray(T object, T[] array) {
@@ -15,6 +16,7 @@ public class ArrayHelpers {
 			if (object == array[i]) {
 				return i;
 			}
+
 		}
 		return -1;
 	}
@@ -86,9 +88,10 @@ public class ArrayHelpers {
 	 * @param array
 	 */
 	public static <T> T[] ensureCapacity(T[] array) {
-		if (isFull(array)) {
+		if (array[0] != null && isFull(array)) {
 			@SuppressWarnings("unchecked")
-			T[] doubledArray = (T[]) new Object[array.length*2];
+			Object doubledPreArray = Array.newInstance(array[0].getClass(), array.length * 2);
+			T[] doubledArray = (T[]) doubledPreArray;
 			for (int i = 0; i < array.length; i++) {
 				doubledArray[i] = array[i];
 			}

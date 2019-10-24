@@ -1,5 +1,7 @@
 package weather_forecast_app;
 import geography.City;
+import java.util.Arrays;
+import java.util.ArrayList;
 import geography.Region;
 import utility.*;
 import weather.CityWeather;
