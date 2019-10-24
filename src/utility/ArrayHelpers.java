@@ -74,7 +74,7 @@ public class ArrayHelpers {
 	 * @return
 	 */
 	private static <T> boolean isFull(T[] array) {
-		if (array[array.length] == null) {
+		if (array[array.length - 1] == null) {
 			return true;
 		} else {
 			return false;

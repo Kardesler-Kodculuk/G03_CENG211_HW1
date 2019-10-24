@@ -19,7 +19,7 @@ public class FileIO {
 		try {
 			br = new BufferedReader(new FileReader(fileName));
 			while((line = br.readLine()) != null) {
-				ArrayHelpers.ensureCapacity(lineArray);
+				lineArray = ArrayHelpers.ensureCapacity(lineArray);
 				lineArray[i] = line;
 				i++;
 			}
