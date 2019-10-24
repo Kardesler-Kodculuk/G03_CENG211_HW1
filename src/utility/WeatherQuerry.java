@@ -6,14 +6,16 @@ import weather.CityWeather;
 import weather.Weather;
 
 public class WeatherQuerry {
-	private static final int CITYCOUNT = 81;
-	private static final int REGIONCOUNT = 7;
+	private final int CITYCOUNT;
+	private final int REGIONCOUNT;
 	private CityWeather[][] weatherForecast;
 	private Region[] regions;
 	
 	public WeatherQuerry(Region[] regions, CityWeather[][] weatherForecast) {
 		this.regions = regions;
 		this.weatherForecast = weatherForecast;
+		this.CITYCOUNT = weatherForecast.length;
+		this.REGIONCOUNT = regions.length;
 	}
 	
 	private void printLowestFeelLikeTemperature() {
@@ -55,9 +57,29 @@ public class WeatherQuerry {
 		System.out.println(cities[CITYCOUNT - 1].toString() + cities[CITYCOUNT - 2].toString() +  cities[CITYCOUNT - 3].toString());
 	}
 	
-	private void printRegionWithHighestHumidity () {}
+	private void printRegionWithHighestHumidity () {
+		double[] totalHumidities = new double[REGIONCOUNT];
+		Double[] avarageHumidities = new Double[REGIONCOUNT];
+		Region[] resultRegions = regions.clone();
+		int regionIndex;
+		for (int i = 1; i < weatherForecast.length; i++) {
+			for (Region region : regions) {
+				if (ArrayHelpers.isReferenceInArray(weatherForecast[i][0].getCity(), region.getCities())) {
+					regionIndex = ArrayHelpers.returnIndexByReference(region, regions);
+					for (int j = 0; j < weatherForecast[i].length; j++) {
+						totalHumidities[regionIndex] += weatherForecast[i][j].getWeather().getHumidity();
+					}
+					totalHumidities[regionIndex] /= 7;
+				}
+			}
+		}
+		ArrayHelpers.sortArrayAccordingTo(resultRegions, avarageHumidities);
+		System.out.println(resultRegions[REGIONCOUNT - 1]);
+		
+	}
 	public void ask(Region[] regions, CityWeather[][] cityWeather) {
 		printLowestFeelLikeTemperature();
 		printTopThreeCitiesWithTheHighestTemperatureVariation();
+		printRegionWithHighestHumidity();
 	}
 }

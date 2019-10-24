@@ -41,29 +41,7 @@ public class FileIO {
 			String name = values[1];
 			byte regionID = Byte.parseByte(values[2]);
 			// For region class identification
-			switch (regionID) {
-			case 1:
-				region = regions[0];
-				break;
-			case 2:
-				region = regions[1];
-				break;
-			case 3:
-				region = regions[2];
-				break;
-			case 4:
-				region = regions[3];
-				break;
-			case 5:
-				region = regions[4];
-				break;
-			case 6:
-				region = regions[5];
-				break;
-			case 7:
-				region = regions[6];
-				break;
-			}
+			region = regions[regionID - 1];
 			double altitude = Double.parseDouble(values[4]);
 			City city = new City(plateNo, name, regionID, region, altitude);
 			city.getRegion().addCity(city);
