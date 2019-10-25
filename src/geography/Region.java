@@ -39,4 +39,7 @@ public class Region {
 	public City[] getCities() {
 		return cities;
 	}
+	public String toString() {
+		return name;
+	}
 }

@@ -21,7 +21,7 @@ public class WeatherQuerry {
 	
 	private void printLowestFeelLikeTemperature() {
 		CityWeather cityWeathers[] = ArrayHelpers.straighten(weatherForecast);
-		double lowestFeelsLike = 0;
+		double lowestFeelsLike = cityWeathers[7].getWeather().getFeelsLikeTemperature();
 		double currentFeelsLike = 0;
 		City[] resultCities = new City[CITYCOUNT];
 		int emptyIndex = 0;
@@ -39,7 +39,7 @@ public class WeatherQuerry {
 				resultCities[emptyIndex] = currentCityWeather.getCity();
 			}
 		}
-		System.out.println(ArrayHelpers.trimArrayToFullFilled(resultCities));
+		ArrayHelpers.prettyPrintArray(ArrayHelpers.trimArrayToFullFilled(resultCities));
 	}
 
 	private void printTopThreeCitiesWithTheHighestTemperatureVariation() {
@@ -113,7 +113,8 @@ public class WeatherQuerry {
 				cityArray[index++] = weatherForecast[i][0].getCity();
 			}
 		}
-		System.out.println(cityArray);
+		cityArray = ArrayHelpers.trimArrayToFullFilled(cityArray);
+		ArrayHelpers.prettyPrintArray(cityArray);
 	}
 	
 	private boolean isFlyable(CityWeather cityWeather) {
@@ -141,7 +142,7 @@ public class WeatherQuerry {
 				emptyIndex++;
 			}
 		}
-		System.out.println(dates);
+		ArrayHelpers.prettyPrintArray(dates);
 	}
 	public void ask() {
 		printLowestFeelLikeTemperature();
