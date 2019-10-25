@@ -79,6 +79,9 @@ public class WeatherQuerry {
 				}
 			}
 		}
+		for (int j = 0; j < totalHumidities.length; j++) {
+			avarageHumidities[j] = totalHumidities[j] / regions[j].getCities().length;
+		}
 		ArrayHelpers.sortArrayAccordingTo(resultRegions, avarageHumidities);
 		System.out.println(resultRegions[REGIONCOUNT - 1]);
 		
@@ -104,7 +107,7 @@ public class WeatherQuerry {
 	private void printRainyDays() {
 		City[] cityArray = new City[10];
 		int index = 0;
-		for (int i = 0; i < weatherForecast.length; i++) {
+		for (int i = 1; i < weatherForecast.length; i++) {
 			if (weatherForecast[i][0].getWeather().getPrecipetion() >= RAINTHRESHOLD && weatherForecast[i][1].getWeather().getPrecipetion() >= RAINTHRESHOLD) {
 				cityArray = ArrayHelpers.ensureCapacity(cityArray);
 				cityArray[index++] = weatherForecast[i][0].getCity();
@@ -137,8 +140,8 @@ public class WeatherQuerry {
 	}
 	public void ask() {
 		printLowestFeelLikeTemperature();
-//		printTopThreeCitiesWithTheHighestTemperatureVariation();
-//		printRegionWithHighestHumidity();
+		printTopThreeCitiesWithTheHighestTemperatureVariation();
+		printRegionWithHighestHumidity();
 		printMeanTemperatureAltitude();
 		printRainyDays();
 		printFlightableDays();

@@ -160,7 +160,7 @@ public class ArrayHelpers {
 		if (targetArray.length == helperArray.length) {
 			for (int i = 0; i < targetArray.length; i++) {
 				for (int j = i + 1; j < targetArray.length; j++) {
-					if (helperArray[j].compareTo(helperArray[j + 1]) > 0) {
+					if (j != targetArray.length - 1 && helperArray[j].compareTo(helperArray[j + 1]) > 0) {
 						temporaryCompareValue = helperArray[j];
 						temporaryObjectValue = targetArray[j];
 						helperArray[j] = helperArray[j + 1];
