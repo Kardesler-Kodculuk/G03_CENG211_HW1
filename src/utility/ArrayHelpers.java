@@ -216,9 +216,9 @@ public class ArrayHelpers {
 		String printString = "";
 		for (T object : array) {
 			printString = printString + object.toString() + ", ";
+		}
 		printString = printString.substring(0, printString.length() - 2);
 		printString.replace("\n", "");
 		System.out.println(printString);
- 	}
 	}
 }
