@@ -17,7 +17,7 @@ public class WeatherQuerry {
 	public WeatherQuerry(Region[] regions, CityWeather[][] weatherForecast) {
 		this.regions = regions;
 		this.weatherForecast = weatherForecast;
-		this.CITYCOUNT = weatherForecast.length;
+		this.CITYCOUNT = weatherForecast.length - 1;
 		this.REGIONCOUNT = regions.length;
 	}
 	
@@ -85,7 +85,8 @@ public class WeatherQuerry {
 	}
 	
 	private void printMeanTemperatureAltitude () {
-		double lowestAltitude = 0, highestAltitude = 0, currentAltitude;
+		double firstAltitude = weatherForecast[1][0].getCity().getAltitude();
+		double lowestAltitude = firstAltitude , highestAltitude = firstAltitude, currentAltitude;
 		int lowestIndex = 0, highestIndex = 0;
 		for (int i = 1; i <= CITYCOUNT; i++) {
 			currentAltitude = weatherForecast[i][0].getCity().getAltitude();
@@ -136,8 +137,8 @@ public class WeatherQuerry {
 	}
 	public void ask() {
 		printLowestFeelLikeTemperature();
-		printTopThreeCitiesWithTheHighestTemperatureVariation();
-		printRegionWithHighestHumidity();
+//		printTopThreeCitiesWithTheHighestTemperatureVariation();
+//		printRegionWithHighestHumidity();
 		printMeanTemperatureAltitude();
 		printRainyDays();
 		printFlightableDays();

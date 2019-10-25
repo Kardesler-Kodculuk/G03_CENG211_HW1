@@ -173,22 +173,42 @@ public class ArrayHelpers {
 		}
 	}
 	
+	private static void quickSort(double[] array, int startIndex, int stopIndex) {
+		if (startIndex < stopIndex) {
+			double pivotValue = array[stopIndex];
+			double tempVar = 0;
+			int traversalBack = startIndex - 1;
+			for (int i = startIndex; i < stopIndex; i++) {
+				if (array[i] < pivotValue) {
+					traversalBack++;
+					tempVar = array[traversalBack];
+					array[traversalBack] = array[i];
+					array[i] = tempVar; 
+				}
+			}
+			array[stopIndex] = array[traversalBack + 1];
+			array[traversalBack + 1] = pivotValue;
+			quickSort(array, startIndex, traversalBack);
+			quickSort(array, traversalBack + 2, stopIndex);
+		}
+	}
+
+	private static void quickSort(double[] array) {
+		quickSort(array, 0, array.length - 1);
+	}
+
 	/**
 	 * Calculate and return the mean value from an array of values.
 	 * @param values
 	 * @return
 	 */
 	public static double calculateMean(double[] values) {
-		Double[] valuesSorted = new Double[values.length];
 		double mean;
-		for (int i = 0; i < values.length; i++) {
-			valuesSorted[i] = values[i];
-		}
-		sortArrayAccordingTo(valuesSorted, valuesSorted.clone());
+		quickSort(values);
 		if (values.length % 2 == 0) {
-			mean = (valuesSorted[values.length / 2] + valuesSorted[values.length / 2 + 1]) / 2;
+			mean = (values[values.length / 2] + values[values.length / 2 + 1]) / 2;
 		} else {
-			mean = valuesSorted[values.length / 2 + 1];
+			mean = values[values.length / 2 + 1];
 		}
 		return mean;
 	}
