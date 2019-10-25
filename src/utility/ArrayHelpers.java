@@ -85,7 +85,7 @@ public class ArrayHelpers {
 				count++;
 			}
 		}
-		return cutToIndex(array, count);
+		return cutToIndex(array, count - 1);
 	}
 	/**
 	 * If array is full, it returns true. If not returns false

@@ -51,16 +51,18 @@ public class WeatherQuerry {
 		double temperatureVariation = 0;
 		double[] weeklyTemperature;
 		for (CityWeather[] cwArray : weatherForecast) {
-			if (cwArray.length == 0) {
+			if (cwArray[0] == null) {
 				continue;
 			}
 			weeklyTemperature = CityWeather.getTemperatureArray(cwArray);
 			temperatureVariation = ArrayHelpers.findMinMaxDifference(weeklyTemperature);
 			temperatureVariations[emptyIndex] = temperatureVariation;
-			cities[emptyIndex] = cwArray[0].getCity();
+			cities[emptyIndex++] = cwArray[0].getCity();
 		}
+		cities = ArrayHelpers.trimArrayToFullFilled(cities);
+		temperatureVariations = ArrayHelpers.trimArrayToFullFilled(temperatureVariations);
 		ArrayHelpers.sortArrayAccordingTo(cities, temperatureVariations);
-		System.out.println(cities[CITYCOUNT - 1].toString() + cities[CITYCOUNT - 2].toString() +  cities[CITYCOUNT - 3].toString());
+		System.out.println(cities[cities.length - 1].toString() + ", " + cities[cities.length - 2].toString() +  ", " + cities[cities.length - 3].toString());
 	}
 	
 	private void printRegionWithHighestHumidity () {
@@ -122,13 +124,18 @@ public class WeatherQuerry {
 	
 	private void printFlightableDays() {
 		Scanner userInput = new Scanner(System.in);
+		System.out.println("Please enter a city name to see its flyable days:\n> ");
 		String cityName = userInput.next();
 		userInput.close();
 		String[] dates = new String[7];
 		int emptyIndex = 0;
 		int cityIndex = 1;
-		while (weatherForecast[cityIndex][0].getCity().getName() != cityName) {
+		while (cityIndex < 82 && !weatherForecast[cityIndex][0].getCity().getName().equals(cityName)) {
 			cityIndex++;
+		}
+		if (cityIndex == 82) {
+			System.out.println("Invalid city name entered.");
+			return;
 		}
 		for (CityWeather cityWeather : weatherForecast[cityIndex]) {
 			if (isFlyable(cityWeather)) {
