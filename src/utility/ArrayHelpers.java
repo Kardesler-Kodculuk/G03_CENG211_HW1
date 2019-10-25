@@ -30,6 +30,7 @@ public class ArrayHelpers {
 	 * @param size Size of the array to be created.
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	private static <T> T[] createObjectArray(Class<?> type, int size) {
 		return (T[]) Array.newInstance(type, size);
 	}
@@ -40,7 +41,6 @@ public class ArrayHelpers {
 	 * @param matrix 2D matrix to unwrap
 	 * @return Unwrapped array.
 	 */
-	@SuppressWarnings("unchecked")
 	public static<T> T[] straighten(T[][] matrix) {
 		int resultLength = 0;
 		int resultIndex = 0;
@@ -57,8 +57,7 @@ public class ArrayHelpers {
 		}
 		return resultArray;
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	public static<T> T[] cutToIndex(T[] array, int cutIndex) {
 		T reference = array[0] != null ? array[0] : array[1];
 		if (reference == null) {
@@ -106,7 +105,6 @@ public class ArrayHelpers {
 	 */
 	public static <T> T[] ensureCapacity(T[] array) {
 		if (array[0] != null && isFull(array)) {
-			@SuppressWarnings("unchecked")
 			T[] doubledArray = createObjectArray(array[0].getClass(), array.length * 2);
 			for (int i = 0; i < array.length; i++) {
 				doubledArray[i] = array[i];
@@ -122,14 +120,15 @@ public class ArrayHelpers {
 	 * @param array Array to format.
 	 */
 	public static <T> void formatArray(T[] array) {
-		for (T object : array) {
-			object = null;
+		for (int i = 0; i < array.length; i++) {
+			array[i] = null;
 		}
 	}
 	
 	/**
-	 * Find the difference between maximum and minimum numbers in a double or double castable array.
-	 * @param array of doubles or double-castable numerals.
+	 * Find the difference between maximum and minimum numbers in a double or
+	 * a numeral type that can be cast into a double array.
+	 * @param array of doubles or numerals that can be cast into doubles.
 	 * @return the difference.
 	 */
 	public static double findMinMaxDifference(double[] array) {
@@ -211,5 +210,14 @@ public class ArrayHelpers {
 			mean = values[values.length / 2 + 1];
 		}
 		return mean;
+	}
+
+	public static <T> void prettyPrintArray(T[] array) {
+		String printString = "";
+		for (T object : array) {
+			printString = printString + object.toString() + ", ";
+		printString = printString.substring(0, printString.length() - 2);
+		System.out.println(printString);
+ 	}
 	}
 }

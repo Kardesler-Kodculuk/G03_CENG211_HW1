@@ -1,12 +1,10 @@
 package utility;
 
-import java.time.temporal.WeekFields;
 import java.util.Scanner;
 
 import geography.City;
 import geography.Region;
 import weather.CityWeather;
-import weather.Weather;
 
 public class WeatherQuerry {
 	private final int CITYCOUNT;

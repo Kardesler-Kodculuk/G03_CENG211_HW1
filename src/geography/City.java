@@ -30,4 +30,8 @@ public class City {
 	public double getAltitude() {
 		return altitude;
 	}
+	
+	public String toString() {
+		return name;
+	}
 }
