@@ -20,23 +20,23 @@ public class WeatherQuerry {
 	}
 	
 	private void printLowestFeelLikeTemperature() {
-		CityWeather cityWeathers[] = ArrayHelpers.straighten(weatherForecast);
-		double lowestFeelsLike = cityWeathers[7].getWeather().getFeelsLikeTemperature();
+		double lowestFeelsLike = weatherForecast[1][0].getWeather().getFeelsLikeTemperature();
 		double currentFeelsLike = 0;
 		City[] resultCities = new City[CITYCOUNT];
 		int emptyIndex = 0;
-		for (CityWeather currentCityWeather : cityWeathers) {
-			if (currentCityWeather == null) {
-				continue;
-			}
-			currentFeelsLike = currentCityWeather.getWeather().getFeelsLikeTemperature();
-			if (currentFeelsLike == lowestFeelsLike) {
-				resultCities = ArrayHelpers.ensureCapacity(resultCities);
-				resultCities[emptyIndex++] = currentCityWeather.getCity();
-			} else if (currentFeelsLike < lowestFeelsLike) {
-				ArrayHelpers.formatArray(resultCities);
-				emptyIndex = 0;	
-				resultCities[emptyIndex] = currentCityWeather.getCity();
+		for (int i = 1; i < weatherForecast.length; i++) {
+			for (int j = 0; j < weatherForecast[i].length; j++) {
+				currentFeelsLike = weatherForecast[i][j].getWeather().getFeelsLikeTemperature();
+				if (currentFeelsLike == lowestFeelsLike) {
+					lowestFeelsLike = currentFeelsLike;
+					resultCities[emptyIndex] = weatherForecast[i][j].getCity();
+					emptyIndex++;
+				} else if (currentFeelsLike < lowestFeelsLike) {
+					lowestFeelsLike = currentFeelsLike;
+					emptyIndex = 1;
+					resultCities = new City[CITYCOUNT];
+					resultCities[0] = weatherForecast[i][j].getCity();
+				}
 			}
 		}
 		ArrayHelpers.prettyPrintArray(ArrayHelpers.trimArrayToFullFilled(resultCities));
