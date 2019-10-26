@@ -11,6 +11,12 @@ import weather.CityWeather;
 import weather.Weather;
 
 public class FileIO {
+	/**
+	 * It uses FileReader to read file and BufferedReader to reading lines.
+	 * After reading, it puts lines in an array and returns the array. 
+	 * @param fileName - Name of the file as a String with its extension.
+	 * @return String array which contains every line in the text file.
+	 */
 	private static String[] parseFile(String fileName) {
 		BufferedReader br;
 		String[] lineArray = new String[5];
@@ -32,6 +38,15 @@ public class FileIO {
 		return lineArray;
 		}
 	
+	/**
+	 * It takes a city file as a string for parsing the cities', creates according to these
+	 * attributes and takes a region array to set every city's region to matching ones. It also
+	 * fills the regions array with cities. Index of the array starts with 1 which represents
+	 * the plate numbers of the cities.
+	 * @param cityFile - Name of the file as a String with its extension.
+	 * @param regions - Regions array
+	 * @return City array according to file
+	 */
 	public static City[] returnCities(String cityFile, Region[] regions) {
 		String[] lines = FileIO.parseFile(cityFile);
 		City[] cities = new City[82];
@@ -52,6 +67,15 @@ public class FileIO {
 		}
 		return cities;
 	}
+	/**
+	 * It takes a weather file which has every cities' weekly forecast. Parses the lines.
+	 * Creates a double dimensional array. The first arrays represents cities and inside the
+	 * city arrays there are seven days of the week with weather forecast. The index 0 is empty
+	 * because array filled by plate numbers.
+	 * @param weatherFile - Name of the file as a String with its file extension
+	 * @param cities - An array holds city objects
+	 * @return Two dimensional array. First cities, second days.
+	 */
 	public static CityWeather[][] returnWeeklyForecast(String weatherFile, City[] cities) {
 		CityWeather[][] weeklyForecast = new CityWeather[82][7];
 		String[] lines = FileIO.parseFile(weatherFile);
