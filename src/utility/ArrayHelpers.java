@@ -196,6 +196,13 @@ public class ArrayHelpers {
 		quickSort(array, 0, array.length - 1);
 	}
 
+	public static double calculateAvarage(double[] values) {
+		double sum = 0;
+		for (double number : values) {
+			sum += number;
+		}
+		return sum / values.length;
+	}
 	/**
 	 * Calculate and return the mean value from an array of values.
 	 * @param values
@@ -203,6 +210,7 @@ public class ArrayHelpers {
 	 */
 	public static double calculateMean(double[] values) {
 		double mean;
+		values = values.clone();
 		quickSort(values);
 		if (values.length % 2 == 0) {
 			mean = (values[values.length / 2 - 1] + values[values.length / 2]) / 2;

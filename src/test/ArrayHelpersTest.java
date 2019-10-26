@@ -43,6 +43,7 @@ class ArrayHelpersTest {
 		assertEquals(15, utility.ArrayHelpers.calculateMean(array));
 		double[] evenArray = {14, 17, 13, 15, 16, 17};
 		assertEquals(15.5, utility.ArrayHelpers.calculateMean(evenArray));
+		assertArrayEquals(carbonCopy, array);
 	}
 	
 	@Test

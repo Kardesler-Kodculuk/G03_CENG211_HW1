@@ -79,7 +79,7 @@ public class WeatherQuerry {
 					totalHumidities[i] += cityWeather.getWeather().getHumidity();
 				}
 			}
-			avarageHumidities[i] = totalHumidities[i] / (7 * regions[i].getCities().length);
+			avarageHumidities[i] = totalHumidities[i] / (7 * ArrayHelpers.trimArrayToFullFilled(regions[i].getCities()).length);
 		}
 		ArrayHelpers.sortArrayAccordingTo(resultRegions, avarageHumidities);
 		System.out.println(resultRegions[REGIONCOUNT - 1]);
@@ -92,22 +92,22 @@ public class WeatherQuerry {
 		int lowestIndex = 0, highestIndex = 0;
 		for (int i = 1; i <= CITYCOUNT; i++) {
 			currentAltitude = weatherForecast[i][0].getCity().getAltitude();
-			if (currentAltitude > highestAltitude) {
+			if (currentAltitude >= highestAltitude) {
 				highestAltitude = currentAltitude;
 				highestIndex = i;
-			} else if (currentAltitude < lowestAltitude) {
+			} else if (currentAltitude <= lowestAltitude) {
 				lowestAltitude = currentAltitude;
 				lowestIndex = i;
 			}
 		}
-		System.out.println(ArrayHelpers.calculateMean(CityWeather.getTemperatureArray(weatherForecast[lowestIndex])) + ", " + ArrayHelpers.calculateMean(CityWeather.getTemperatureArray(weatherForecast[highestIndex])));
+		System.out.println(ArrayHelpers.calculateAvarage(CityWeather.getTemperatureArray(weatherForecast[highestIndex])) + ", " + ArrayHelpers.calculateAvarage(CityWeather.getTemperatureArray(weatherForecast[lowestIndex])));
 	}
 	
 	private void printRainyDays() {
 		City[] cityArray = new City[10];
 		int index = 0;
 		for (int i = 1; i < weatherForecast.length; i++) {
-			if (weatherForecast[i][0].getWeather().getPrecipetion() >= RAINTHRESHOLD && weatherForecast[i][1].getWeather().getPrecipetion() >= RAINTHRESHOLD) {
+			if (weatherForecast[i][1].getWeather().getPrecipetion() >= RAINTHRESHOLD && weatherForecast[i][2].getWeather().getPrecipetion() >= RAINTHRESHOLD) {
 				cityArray = ArrayHelpers.ensureCapacity(cityArray);
 				cityArray[index++] = weatherForecast[i][0].getCity();
 			}
@@ -145,7 +145,7 @@ public class WeatherQuerry {
 	}
 	public void ask() {
 		printLowestFeelLikeTemperature();
-		printTopThreeCitiesWithTheHighestTemperatureVariation();
+//		printTopThreeCitiesWithTheHighestTemperatureVariation();
 		printRegionWithHighestHumidity();
 		printMeanTemperatureAltitude();
 		printRainyDays();
