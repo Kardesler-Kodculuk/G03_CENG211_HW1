@@ -68,20 +68,17 @@ public class WeatherQuerry {
 		double[] totalHumidities = new double[REGIONCOUNT];
 		Double[] avarageHumidities = new Double[REGIONCOUNT];
 		Region[] resultRegions = regions.clone();
-		int regionIndex;
-		for (int i = 1; i < weatherForecast.length; i++) {
-			for (Region region : regions) {
-				if (ArrayHelpers.isReferenceInArray(weatherForecast[i][0].getCity(), region.getCities())) {
-					regionIndex = ArrayHelpers.returnIndexByReference(region, regions);
-					for (int j = 0; j < weatherForecast[i].length; j++) {
-						totalHumidities[regionIndex] += weatherForecast[i][j].getWeather().getHumidity();
-					}
-					totalHumidities[regionIndex] /= 7;
+		City[] citiesArray;
+		int plateNo = 0;
+		for (int i = 0; i < regions.length; i++) {
+			citiesArray = regions[i].getCities();
+			for (City city : citiesArray) {
+				plateNo = city.getPlateNo();
+				for (CityWeather cityWeather : weatherForecast[plateNo]) {
+					totalHumidities[i] += cityWeather.getWeather().getHumidity();
 				}
 			}
-		}
-		for (int j = 0; j < totalHumidities.length; j++) {
-			avarageHumidities[j] = totalHumidities[j] / regions[j].getCities().length;
+			avarageHumidities[i] = totalHumidities[i] / (7 * regions[i].getCities().length);
 		}
 		ArrayHelpers.sortArrayAccordingTo(resultRegions, avarageHumidities);
 		System.out.println(resultRegions[REGIONCOUNT - 1]);
