@@ -55,8 +55,7 @@ public class WeatherQuerry {
 			}
 			weeklyTemperature = CityWeather.getTemperatureArray(cwArray);
 			temperatureVariation = ArrayHelpers.calculateStandartDeviation(weeklyTemperature);
-			System.out.println(cwArray[0].getCity() + ", " + temperatureVariation);
-			temperatureVariations[emptyIndex] = (Math.round(temperatureVariation);
+			temperatureVariations[emptyIndex] = temperatureVariation;
 			cities[emptyIndex] = cwArray[0].getCity();
 			emptyIndex++;
 		}

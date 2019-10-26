@@ -2,24 +2,6 @@ package utility;
 import java.lang.reflect.Array;
 
 public class ArrayHelpers {
-	public static <T> boolean isReferenceInArray(T object, T[] array) {
-		for (T arrayObject : array) {
-			if (arrayObject == object) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public static<T> int returnIndexByReference(T object, T[] array) {
-		for (int i = 0; i < array.length; i++) {
-			if (object == array[i]) {
-				return i;
-			}
-
-		}
-		return -1;
-	}
 	
 	/**
 	 * This seems to be the only legal way to actually create a generic array inside a static method,
@@ -35,28 +17,6 @@ public class ArrayHelpers {
 		return (T[]) Array.newInstance(type, size);
 	}
 	
-	/**
-	 * Straighten a 2D matrix into a one dimensional array.
-	 * @param <T> Object type.
-	 * @param matrix 2D matrix to unwrap
-	 * @return Unwrapped array.
-	 */
-	public static<T> T[] straighten(T[][] matrix) {
-		int resultLength = 0;
-		int resultIndex = 0;
-		T[] resultArray;
-		for (T[] subarray : matrix) {
-			resultLength += subarray.length;
-		}
-		resultArray = createObjectArray(matrix[1][0].getClass(), resultLength);
-		for (T[] subarray : matrix) {
-			for (T object : subarray) {
-				resultArray[resultIndex] = object;
-				resultIndex++;
-			}
-		}
-		return resultArray;
-	}
 
 	public static<T> T[] cutToIndex(T[] array, int cutIndex) {
 		T reference = array[0] != null ? array[0] : array[1];
@@ -113,38 +73,7 @@ public class ArrayHelpers {
 		}
 		return array;
 	}
-	
-	/**
-	 * Set all the elements of the array to null
-	 * @param <T> Type of array.
-	 * @param array Array to format.
-	 */
-	public static <T> void formatArray(T[] array) {
-		for (int i = 0; i < array.length; i++) {
-			array[i] = null;
-		}
-	}
-	
-	/**
-	 * Find the difference between maximum and minimum numbers in a double or
-	 * a numeral type that can be cast into a double array.
-	 * @param array of doubles or numerals that can be cast into doubles.
-	 * @return the difference.
-	 */
-	public static double findMinMaxDifference(double[] array) {
-		double min = array[0];
-		double max = array[0];
-		double difference = 0;
-		for (double number : array) {
-			if (number < min) {
-				min = number;
-			} else if (number > max) {
-				max = number;
-			}
-		}
-		difference = max - min;
-		return difference;
-	}
+
 	
 	/**
 	 * Sort targetArray according to helperArray.
@@ -158,8 +87,8 @@ public class ArrayHelpers {
 		T temporaryObjectValue;
 		if (targetArray.length == helperArray.length) {
 			for (int i = 0; i < targetArray.length; i++) {
-				for (int j = i + 1; j < targetArray.length; j++) {
-					if (j != targetArray.length - 1 && helperArray[j].compareTo(helperArray[j + 1]) > 0) {
+				for (int j = 0; j < targetArray.length - i; j++) {
+					if (j != targetArray.length - 1 && helperArray[j].compareTo(helperArray[j + 1]) >= 0) {
 						temporaryCompareValue = helperArray[j];
 						temporaryObjectValue = targetArray[j];
 						helperArray[j] = helperArray[j + 1];
@@ -172,29 +101,6 @@ public class ArrayHelpers {
 		}
 	}
 
-	private static void quickSort(double[] array, int startIndex, int stopIndex) {
-		if (startIndex < stopIndex) {
-			double pivotValue = array[stopIndex];
-			double tempVar = 0;
-			int traversalBack = startIndex - 1;
-			for (int i = startIndex; i < stopIndex; i++) {
-				if (array[i] < pivotValue) {
-					traversalBack++;
-					tempVar = array[traversalBack];
-					array[traversalBack] = array[i];
-					array[i] = tempVar; 
-				}
-			}
-			array[stopIndex] = array[traversalBack + 1];
-			array[traversalBack + 1] = pivotValue;
-			quickSort(array, startIndex, traversalBack);
-			quickSort(array, traversalBack + 2, stopIndex);
-		}
-	}
-
-	public static void quickSort(double[] array) {
-		quickSort(array, 0, array.length - 1);
-	}
 
 	public static double calculateAvarage(double[] values) {
 		double sum = 0;
@@ -214,22 +120,6 @@ public class ArrayHelpers {
 		return Math.sqrt(calculateAvarage(squaredValues));
 	}
 	
-	/**
-	 * Calculate and return the mean value from an array of values.
-	 * @param values
-	 * @return
-	 */
-	public static double calculateMean(double[] values) {
-		double mean;
-		values = values.clone();
-		quickSort(values);
-		if (values.length % 2 == 0) {
-			mean = (values[values.length / 2 - 1] + values[values.length / 2]) / 2;
-		} else {
-			mean = values[values.length / 2];
-		}
-		return mean;
-	}
 
 
 	public static <T> void prettyPrintArray(T[] array) {
