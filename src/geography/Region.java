@@ -12,26 +12,22 @@ public class Region {
 		this.name = name;
 	}
 	
-	
-	
 	public byte getId() {
 		return id;
 	}
-
-
 
 	public String getName() {
 		return name;
 	}
 
-
-
 	public int getIndex() {
 		return index;
 	}
 
-
-
+	/**
+	 * It adds cities to this region.
+	 * @param city - City object
+	 */
 	public void addCity(City city) {
 		cities = ArrayHelpers.ensureCapacity(cities);
 		cities[index] = city;
