@@ -3,6 +3,13 @@ import geography.City;
 import geography.Region;
 import utility.*;
 import weather.CityWeather;
+
+
+/**
+ * G03_CENG211_HW1
+ * Oğuzhan Özer 260201039
+ * Ege Emir Özkan 260201010
+ */
 public class WeatherForecastApp {
 
 	public static void main(String[] args) {
@@ -19,6 +26,7 @@ public class WeatherForecastApp {
 		CityWeather[][] weeklyForecast = FileIO.returnWeeklyForecast("CENG211_HW1_WeeklyForecast.csv", cities);
 		WeatherQuerry weatherQuerry = new WeatherQuerry(regions, weeklyForecast);
 		weatherQuerry.ask();
+		
 	}
 
 }

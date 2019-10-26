@@ -21,6 +21,11 @@ public class CityWeather {
 		return date;
 	}
 	
+	/**
+	 * Return an array of temperatures from a given array of cityWeathers
+	 * @param cityWeatherArray cityWeather array
+	 * @return an array of tempreatures as doubles.
+	 */
 	public static double[] getTemperatureArray(CityWeather[] cityWeatherArray) {
 		double[] weatherArray = new double[cityWeatherArray.length];
 		for (int i = 0; i < cityWeatherArray.length; i++) {

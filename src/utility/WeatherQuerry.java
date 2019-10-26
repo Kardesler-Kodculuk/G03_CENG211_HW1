@@ -20,6 +20,9 @@ public class WeatherQuerry {
 		this.REGIONCOUNT = regions.length;
 	}
 	
+	/**
+	 * Print the city with lowest feels like temperature.
+	 */
 	private void printLowestFeelLikeTemperature() {
 		double lowestFeelsLike = weatherForecast[1][0].getWeather().getFeelsLikeTemperature();
 		double currentFeelsLike = 0;
@@ -40,9 +43,13 @@ public class WeatherQuerry {
 				}
 			}
 		}
+		System.out.print("1) ");
 		ArrayHelpers.prettyPrintArray(ArrayHelpers.trimArrayToFullFilled(resultCities));
 	}
 
+	/**
+	 * Print the top three cities with highest temperature variation.
+	 */
 	private void printTopThreeCitiesWithTheHighestTemperatureVariation() {
 		City[] cities = new City[CITYCOUNT];
 		Double[] temperatureVariations = new Double[CITYCOUNT];
@@ -62,9 +69,13 @@ public class WeatherQuerry {
 		cities = ArrayHelpers.trimArrayToFullFilled(cities);
 		temperatureVariations = ArrayHelpers.trimArrayToFullFilled(temperatureVariations);
 		ArrayHelpers.sortArrayAccordingTo(cities, temperatureVariations);
+		System.out.print("2) ");
 		System.out.println(cities[cities.length - 1].toString() + ", " + cities[cities.length - 2].toString() +  ", " + cities[cities.length - 3].toString());
 	}
 	
+	/**
+	 * Print the region with highest average humidity.
+	 */
 	private void printRegionWithHighestHumidity () {
 		double[] totalHumidities = new double[REGIONCOUNT];
 		Double[] avarageHumidities = new Double[REGIONCOUNT];
@@ -83,10 +94,14 @@ public class WeatherQuerry {
 			avarageHumidities[i] = totalHumidities[i] / (7 * ArrayHelpers.trimArrayToFullFilled(regions[i].getCities()).length);
 		}
 		ArrayHelpers.sortArrayAccordingTo(resultRegions, avarageHumidities);
+		System.out.print("3) ");
 		System.out.println(resultRegions[REGIONCOUNT - 1]);
 		
 	}
 	
+	/**
+	 * Print the mean temperatures of the cities with highest and lowest altitude.
+	 */
 	private void printMeanTemperatureAltitude () {
 		double firstAltitude = weatherForecast[1][0].getCity().getAltitude();
 		double lowestAltitude = firstAltitude , highestAltitude = firstAltitude, currentAltitude;
@@ -101,9 +116,14 @@ public class WeatherQuerry {
 				lowestIndex = i;
 			}
 		}
-		System.out.println(ArrayHelpers.calculateAvarage(CityWeather.getTemperatureArray(weatherForecast[highestIndex])) + ", " + ArrayHelpers.calculateAvarage(CityWeather.getTemperatureArray(weatherForecast[lowestIndex])));
+		System.out.print("4) ");
+		System.out.println(String.format("%.3f", ArrayHelpers.calculateAvarage(CityWeather.getTemperatureArray(weatherForecast[highestIndex]))) + ", " 
+				+ String.format("%.3f", ArrayHelpers.calculateAvarage(CityWeather.getTemperatureArray(weatherForecast[lowestIndex]))));
 	}
 	
+	/**
+	 * Print the cities with rainy weather for next two days.
+	 */
 	private void printRainyDays() {
 		City[] cityArray = new City[10];
 		int index = 0;
@@ -114,16 +134,25 @@ public class WeatherQuerry {
 			}
 		}
 		cityArray = ArrayHelpers.trimArrayToFullFilled(cityArray);
+		System.out.print("5) ");
 		ArrayHelpers.prettyPrintArray(cityArray);
 	}
 	
+	/**
+	 * Return if a particular day is flightworthy
+	 * @param cityWeather that day's citweather
+	 * @return True if flightworthy.
+	 */
 	private boolean isFlyable(CityWeather cityWeather) {
 		return cityWeather.getWeather().getWind() < 40 && cityWeather.getWeather().getVisibilty().ordinal() >= 1;
 	}
 	
+	/**
+	 * Return the days that are flightworthy for a specific city.
+	 */
 	private void printFlightableDays() {
 		Scanner userInput = new Scanner(System.in);
-		System.out.println("Please enter a city name to see its flyable days:\n> ");
+		System.out.println("6) Please enter a city name to view flightworthy days:");
 		String cityName = userInput.next();
 		userInput.close();
 		String[] dates = new String[7];
@@ -144,6 +173,10 @@ public class WeatherQuerry {
 		}
 		ArrayHelpers.prettyPrintArray(ArrayHelpers.trimArrayToFullFilled(dates));
 	}
+	
+	/**
+	 * Print all the queries.
+	 */
 	public void ask() {
 		printLowestFeelLikeTemperature();
 		printTopThreeCitiesWithTheHighestTemperatureVariation();

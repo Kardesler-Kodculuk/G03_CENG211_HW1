@@ -1,6 +1,13 @@
+/**
+ * Helper methods for Array operations.
+ */
 package utility;
 import java.lang.reflect.Array;
 
+/**
+ * Class holding the static methods for generating, editing
+ * and modifying arrays.
+ */
 public class ArrayHelpers {
 	
 	/**
@@ -18,6 +25,13 @@ public class ArrayHelpers {
 	}
 	
 
+	/**
+	 * Cut an array to the given index.
+	 * @param <T>
+	 * @param array Origin array.
+	 * @param cutIndex array cut from the origin array.
+	 * @return
+	 */
 	public static<T> T[] cutToIndex(T[] array, int cutIndex) {
 		T reference = array[0] != null ? array[0] : array[1];
 		if (reference == null) {
@@ -29,6 +43,7 @@ public class ArrayHelpers {
 		}
 		return cutArray;
 	}
+
 	/**
 	 * Take non-full filled array and remove excess space.
 	 * @param <T>
@@ -46,6 +61,7 @@ public class ArrayHelpers {
 		}
 		return cutToIndex(array, count - 1);
 	}
+
 	/**
 	 * If array is full, it returns true. If not returns false
 	 * @param array
@@ -102,6 +118,11 @@ public class ArrayHelpers {
 	}
 
 
+	/**
+	 * Calculate the average of a given array of values.
+	 * @param values An array of double values.
+	 * @return the average of the values.
+	 */
 	public static double calculateAvarage(double[] values) {
 		double sum = 0;
 		for (double number : values) {
@@ -111,6 +132,11 @@ public class ArrayHelpers {
 	}
 
 
+	/**
+	 * Calculate the standard deviation of a given set of values.
+	 * @param values an array of double values.
+	 * @return the standard variation.
+	 */
 	public static double calculateStandartDeviation(double[] values) {
 		double mean = calculateAvarage(values);
 		double[] squaredValues = new double[values.length];
@@ -120,8 +146,11 @@ public class ArrayHelpers {
 		return Math.sqrt(calculateAvarage(squaredValues));
 	}
 	
-
-
+	/**
+	 * Since Java cannot print Object Arrays in a presentable way, this method will.
+	 * @param <T>
+	 * @param array Array to be printed.
+	 */
 	public static <T> void prettyPrintArray(T[] array) {
 		String printString = "";
 		for (T object : array) {
