@@ -12,6 +12,7 @@ public class WeatherQuerry {
 	private CityWeather[][] weatherForecast;
 	private Region[] regions;
 	private static final double RAINTHRESHOLD = 80;
+
 	public WeatherQuerry(Region[] regions, CityWeather[][] weatherForecast) {
 		this.regions = regions;
 		this.weatherForecast = weatherForecast;
