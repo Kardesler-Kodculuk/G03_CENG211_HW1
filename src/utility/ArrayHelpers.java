@@ -171,7 +171,7 @@ public class ArrayHelpers {
 			}
 		}
 	}
-	
+
 	private static void quickSort(double[] array, int startIndex, int stopIndex) {
 		if (startIndex < stopIndex) {
 			double pivotValue = array[stopIndex];
@@ -203,6 +203,17 @@ public class ArrayHelpers {
 		}
 		return sum / values.length;
 	}
+
+
+	public static double calculateStandartDeviation(double[] values) {
+		double mean = calculateAvarage(values);
+		double[] squaredValues = new double[values.length];
+		for (int i = 0; i < values.length; i++) {
+			squaredValues[i] = (values[i] - mean) * (values[i] - mean);
+		}
+		return Math.sqrt(calculateAvarage(squaredValues));
+	}
+	
 	/**
 	 * Calculate and return the mean value from an array of values.
 	 * @param values
@@ -219,6 +230,7 @@ public class ArrayHelpers {
 		}
 		return mean;
 	}
+
 
 	public static <T> void prettyPrintArray(T[] array) {
 		String printString = "";

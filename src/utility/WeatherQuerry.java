@@ -54,9 +54,11 @@ public class WeatherQuerry {
 				continue;
 			}
 			weeklyTemperature = CityWeather.getTemperatureArray(cwArray);
-			temperatureVariation = ArrayHelpers.findMinMaxDifference(weeklyTemperature);
-			temperatureVariations[emptyIndex] = temperatureVariation;
-			cities[emptyIndex++] = cwArray[0].getCity();
+			temperatureVariation = ArrayHelpers.calculateStandartDeviation(weeklyTemperature);
+			System.out.println(cwArray[0].getCity() + ", " + temperatureVariation);
+			temperatureVariations[emptyIndex] = (Math.round(temperatureVariation);
+			cities[emptyIndex] = cwArray[0].getCity();
+			emptyIndex++;
 		}
 		cities = ArrayHelpers.trimArrayToFullFilled(cities);
 		temperatureVariations = ArrayHelpers.trimArrayToFullFilled(temperatureVariations);
@@ -117,7 +119,7 @@ public class WeatherQuerry {
 	}
 	
 	private boolean isFlyable(CityWeather cityWeather) {
-		return cityWeather.getWeather().getWind() < 40 && cityWeather.getWeather().getVisibilty().ordinal() > 1;
+		return cityWeather.getWeather().getWind() < 40 && cityWeather.getWeather().getVisibilty().ordinal() >= 1;
 	}
 	
 	private void printFlightableDays() {
@@ -141,11 +143,11 @@ public class WeatherQuerry {
 				emptyIndex++;
 			}
 		}
-		ArrayHelpers.prettyPrintArray(dates);
+		ArrayHelpers.prettyPrintArray(ArrayHelpers.trimArrayToFullFilled(dates));
 	}
 	public void ask() {
 		printLowestFeelLikeTemperature();
-//		printTopThreeCitiesWithTheHighestTemperatureVariation();
+		printTopThreeCitiesWithTheHighestTemperatureVariation();
 		printRegionWithHighestHumidity();
 		printMeanTemperatureAltitude();
 		printRainyDays();
