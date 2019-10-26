@@ -33,8 +33,9 @@ public class Region {
 
 
 	public void addCity(City city) {
-		ArrayHelpers.ensureCapacity(cities);
+		cities = ArrayHelpers.ensureCapacity(cities);
 		cities[index] = city;
+		index++;
 	}
 	public City[] getCities() {
 		return cities;

@@ -73,6 +73,7 @@ public class WeatherQuerry {
 		for (int i = 0; i < regions.length; i++) {
 			citiesArray = regions[i].getCities();
 			for (City city : citiesArray) {
+				if (city == null) continue;
 				plateNo = city.getPlateNo();
 				for (CityWeather cityWeather : weatherForecast[plateNo]) {
 					totalHumidities[i] += cityWeather.getWeather().getHumidity();

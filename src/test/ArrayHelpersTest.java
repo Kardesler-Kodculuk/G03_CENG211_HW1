@@ -2,7 +2,6 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ArrayHelpersTest {
@@ -32,14 +31,35 @@ class ArrayHelpersTest {
 	@Test
 	void testFindMinMaxDifference() {
 		double[] array = {15, 16, 12, 7, 10};
-		assertEquals(utility.ArrayHelpers.findMinMaxDifference(array), 9);
+		assertEquals(9, utility.ArrayHelpers.findMinMaxDifference(array));
 		double[] negativeArray = {-16, 0, 16, 6, 20};
-		assertEquals(utility.ArrayHelpers.findMinMaxDifference(negativeArray), 36);
+		assertEquals(36, utility.ArrayHelpers.findMinMaxDifference(negativeArray));
 	}
 
 	@Test
 	void testCalculateMean() {
-		fail("Not yet implemented");
+		double[] array = {14, 17, 13, 15, 17};
+		double[] carbonCopy = array.clone();
+		assertEquals(15, utility.ArrayHelpers.calculateMean(array));
+		double[] evenArray = {14, 17, 13, 15, 16, 17};
+		assertEquals(15.5, utility.ArrayHelpers.calculateMean(evenArray));
+	}
+	
+	@Test
+	void testQuickSort() {
+		double[] actual = {14, 17, 13, 15, 17};
+		double[] expected = {13, 14, 15, 17, 17};
+		utility.ArrayHelpers.quickSort(actual);
+		assertArrayEquals(expected, actual);
+	}
+	
+	@Test
+	void testSortAccordingTo() {
+		String[] meow = {"A", "C", "B", "C"};
+		Integer[] meowSort = {1,3,2,3};
+		String[] meowExpected = {"A", "B", "C", "C"};
+		utility.ArrayHelpers.sortArrayAccordingTo(meow, meowSort);
+		assertArrayEquals(meowExpected, meow);
 	}
 
 }

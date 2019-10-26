@@ -192,7 +192,7 @@ public class ArrayHelpers {
 		}
 	}
 
-	private static void quickSort(double[] array) {
+	public static void quickSort(double[] array) {
 		quickSort(array, 0, array.length - 1);
 	}
 
@@ -205,9 +205,9 @@ public class ArrayHelpers {
 		double mean;
 		quickSort(values);
 		if (values.length % 2 == 0) {
-			mean = (values[values.length / 2] + values[values.length / 2 + 1]) / 2;
+			mean = (values[values.length / 2 - 1] + values[values.length / 2]) / 2;
 		} else {
-			mean = values[values.length / 2 + 1];
+			mean = values[values.length / 2];
 		}
 		return mean;
 	}
